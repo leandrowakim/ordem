@@ -43,7 +43,7 @@ class Ordem extends Entity
                 return '<span class="text-white"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;' . ucfirst($this->situacao);
             }
 
-            if($this->situacao === 'nap_pago') {
+            if($this->situacao === 'nao_pago') {
                 return '<span class="text-white"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Não pago';
             }
 

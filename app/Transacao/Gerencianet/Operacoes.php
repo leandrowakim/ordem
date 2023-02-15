@@ -384,7 +384,7 @@ class Operacoes
                   
                   $this->ordem->transacao = $transacao;
 
-                  if ($this->ordem->trasacao->status === 'canceled') {                     
+                  if ($this->ordem->transacao->status === 'canceled') {                     
 
                      $this->transacaoModel->save($this->ordem->transacao);
                      
@@ -394,11 +394,11 @@ class Operacoes
                      $this->eventoModel->where('ordem_id', $this->ordem->id)->delete();
                   }
 
-                  if ($this->ordem->trasacao->status === 'paid' || $this->ordem->trasacao->status === 'settled') {
+                  if ($this->ordem->transacao->status === 'paid' || $this->ordem->transacao->status === 'settled') {
                      $this->encerrarOrdemServico();
                   }
 
-                  if ($this->ordem->trasacao->status === 'unpaid') {
+                  if ($this->ordem->transacao->status === 'unpaid') {
                      $this->transacaoModel->save($this->ordem->transacao);
                      
                      $this->ordem->situacao = 'nao_pago';
