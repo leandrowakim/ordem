@@ -25,10 +25,19 @@ class CriaTabelaClientes extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '230',
             ],
-            'cpf' => [
+            'pessoa' => [
+                'type'       => 'ENUM',
+                'constraint' => ['F','J'],
+                'default'    => 'F',
+            ],
+            'cpf_cnpj' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '18',
                 'unique'     => true,
+            ],
+            'rg_ie' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '18',
             ],
             'telefone' => [
                 'type'       => 'VARCHAR',
@@ -48,6 +57,10 @@ class CriaTabelaClientes extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '30',
             ],
+            'complemento'     => [
+                'type'       => 'VARCHAR',
+                'constraint' => '130',
+            ],  
             'bairro'     => [
                 'type'       => 'VARCHAR',
                 'constraint' => '130',

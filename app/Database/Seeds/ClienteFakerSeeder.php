@@ -16,19 +16,29 @@ class ClienteFakerSeeder extends Seeder
         $faker = \Faker\Factory::create('pt-BR');
         //Para criarmos o CPF
         $faker->addProvider(new \Faker\Provider\pt_BR\Person($faker));
-        //Para criarmos o telefone    
+        //Para criarmos o CNPJ
+        $faker->addProvider(new \Faker\Provider\pt_BR\Company($faker));
+        //Para criarmos o telefone
         $faker->addProvider(new \Faker\Provider\pt_BR\PhoneNumber($faker));
 
-        $nRegistros = 1000;
+        $nRegistros = 50;
+        $tipoPessoa = null;
 
         for($i = 0; $i < $nRegistros; $i++) {
 
-            $nomeGerado = $faker->unique()->name;
-            $emailGerado = $faker->unique()->email;
+            $tipoPessoa = rand(0, 1);
+            $nomeGerado = $tipoPessoa ? $faker->name : $faker->company;
+            $emailGerado = $tipoPessoa ? $faker->email : $faker->companyEmail;
+            $doc1 = $tipoPessoa ? $faker->unique()->cpf : $faker->unique()->cnpj;
+            $doc2 = $tipoPessoa ? $faker->rg : 'ISENTO';
+
+            $tipoPessoa = $tipoPessoa ? 'F' : 'J';
 
             $cliente = [
                 'nome' => $nomeGerado,
-                'cpf' => $faker->unique()->cpf,
+                'pessoa' => $tipoPessoa,
+                'cpf_cnpj' => $doc1,
+                'rg_ie' => $doc2,
                 'telefone' => $faker->unique()->cellphoneNumber,
                 'email' => $emailGerado,
                 'endereco' => $faker->streetName,
