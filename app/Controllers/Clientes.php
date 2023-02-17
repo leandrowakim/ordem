@@ -41,7 +41,7 @@ class Clientes extends BaseController
         $atributos = [
             'id',
             'nome',
-            'cpf',
+            'cpf_cnpj',
             'email',
             'telefone',
             'deletado_em',
@@ -60,7 +60,7 @@ class Clientes extends BaseController
             
             $data[] = [
                 'nome'     => anchor("clientes/exibir/$cliente->id", $nomecliente, 'title="Exibir cliente '.$nomecliente.'"'),
-                'cpf'      => esc($cliente->cpf),
+                'cpf_cnpj' => esc($cliente->cpf_cnpj),
                 'email'    => esc($cliente->email),
                 'telefone' => esc($cliente->telefone),
                 'situacao' => $cliente->exibeSituacao(),

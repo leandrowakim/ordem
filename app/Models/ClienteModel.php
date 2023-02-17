@@ -13,11 +13,14 @@ class ClienteModel extends Model
     protected $allowedFields    = [
         'usuario_id',
         'nome',
-        'cpf',
+        'pessoa',
+        'cpf_cnpj',
+        'rg_ie',
         'telefone',                        
         'email',
         'endereco',
         'numero',
+        'complemento',
         'bairro',
         'cidade',
         'estado',
@@ -36,15 +39,16 @@ class ClienteModel extends Model
         'email'     => 'required|valid_email|max_length[225]|is_unique[clientes.email,id,{id}]',
         //Também validamos se o e-mail informado não existe na tabela de usuários...Por exemplo: admin@admin.com
         'email'     => 'is_unique[usuarios.email,id,{id}]',
-        'cpf'       => 'required|validaCPF|exact_length[14]|is_unique[clientes.cpf,id,{id}]',
+        'cpf_cnpj'  => 'required|validaCPF_CNPJ|is_unique[clientes.cpf_cnpj,id,{id}]',
         //Tamanho exato requerido pela gerencianet
-        'telefone'  => 'required|exact_length[15]|is_unique[clientes.telefone,id,{id}]',
+        'telefone'  => 'required|exact_length[15]',
         'endereco'  => 'required|min_length[5]|max_length[125]',
         'numero'    => 'required|max_length[25]',
-        'bairro'    => 'max_length[125]',
-        'cidade'    => 'required|max_length[125]',
-        'estado'    => 'required|max_length[2]',
-        'cep'       => 'required|exact_length[9]',
+        'complemento' => 'max_length[125]',
+        'bairro'      => 'max_length[125]',
+        'cidade'      => 'required|max_length[125]',
+        'estado'      => 'required|max_length[2]',
+        'cep'         => 'required|exact_length[9]',
     ];
 
     protected $validationMessages = [
@@ -54,15 +58,26 @@ class ClienteModel extends Model
             'max_length' => 'O campo Nome não pode ser maior que 225 caractéres!',
             'is_unique' => 'Esse Nome já existe, tente outro!'
         ],
-        'cpf' => [
-            'required' => 'O campo cpf é Obrigatório!',
-            'max_length' => 'O campo cpf não pode ser maior que 14 caractéres!',
-            'is_unique' => 'Esse cpf já existe, tente outro!'
+        'email' => [
+            'required' => 'O campo E-mail é Obrigatório!',
+            'is_unique' => 'Esse E-mail já existe, tente outro!'
+        ],        
+        'cpf_cnpj' => [
+            'required' => 'O campo CPF/CNPJ é Obrigatório!',
+            'is_unique' => 'Esse CPF/CNPJ já existe, tente outro!'
         ],
         'telefone' => [
             'required' => 'O campo Telefone é Obrigatório!',
-            'max_length' => 'O campo Telefone não pode ser maior que 15 caractéres!',
-            'is_unique' => 'Esse Telefone já existe, tente outro!'
+            'max_length' => 'O campo Telefone não pode ser maior que 15 caractéres!'
         ],
+        'endereco' => [
+            'required' => 'O campo endereço é Obrigatório!',
+            'min_length' => 'O campo endereço deve ser maior que 5 caractéres!',
+            'max_length' => 'O campo endereço não pode ser maior que 125 caractéres!'
+        ],
+        'numero' => [
+            'required' => 'O campo número é Obrigatório!',
+            'max_length' => 'O campo número não pode ser maior que 25 caractéres!'
+        ],        
     ];
 }

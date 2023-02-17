@@ -45,6 +45,30 @@
 <script>
 $(document).ready(function() {
 
+   $("[name=pessoa]").on("click", function() {
+      if ($(this).val() === "F") {
+         $('#labelCpf').text("CPF");
+         $('#inputCpf').attr({placeholder: "Insira o CPF"});
+         $('#inputCpf').removeClass('cnpj');
+         $('#inputCpf').addClass('cpf');
+         $('#inputCpf').val('');
+         $('#inputCpf').mask('00.000.000/0000-00', {reverse: true});
+
+         $('#labelRg').text("RG");
+         $('#inputRg').attr({placeholder: "Insira o RG"});
+      } else {
+         $('#labelCpf').text("CNPJ");
+         $('#inputCpf').attr({placeholder: "Insira o CNPJ"});
+         $('#inputCpf').removeClass('cpf');
+         $('#inputCpf').addClass('cnpj');
+         $('#inputCpf').val('');
+         $('#inputCpf').mask('00.000.000/0000-00', {reverse: true});
+
+         $('#labelRg').text("IE");
+         $('#inputRg').attr({placeholder: "Insira a IE"});
+      }
+   });
+   
    <?php echo $this->include('Clientes/_checkmail'); ?>
    
    <?php echo $this->include('Clientes/_viacep'); ?>

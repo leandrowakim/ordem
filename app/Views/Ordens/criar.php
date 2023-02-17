@@ -72,7 +72,7 @@
          maxItem: 1,
          valueField: 'id',
          labelField: 'nome',
-         searchField: ['nome', 'cpf'],
+         searchField: ['nome', 'cpf_cnpj'],
 
          load: function(query, callback){
             if (query.length < 3) {

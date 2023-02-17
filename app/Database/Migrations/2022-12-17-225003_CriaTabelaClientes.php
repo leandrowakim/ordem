@@ -42,7 +42,6 @@ class CriaTabelaClientes extends Migration
             'telefone' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '30',
-                'unique'     => true,
             ],                        
             'email' => [
                 'type'       => 'VARCHAR',

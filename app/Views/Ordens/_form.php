@@ -26,7 +26,7 @@
 
          <select name="cliente_id" class="selectize">
 
-            <option value="">Digite o nome do cliente ou o CPF...</option>
+            <option value="">Digite o nome do cliente, o CPF ou o CNPJ...</option>
          </select>
       </div>
    <?php else: ?>

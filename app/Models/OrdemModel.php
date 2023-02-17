@@ -49,7 +49,7 @@ class OrdemModel extends Model
             'ordens.deletado_em',
             'ordens.situacao',
             'clientes.nome',
-            'clientes.cpf',            
+            'clientes.cpf_cnpj',            
         ];
 
         return $this->select($atributos)
@@ -67,7 +67,7 @@ class OrdemModel extends Model
             'ordens.deletado_em',
             'ordens.situacao',
             'clientes.nome',
-            'clientes.cpf',            
+            'clientes._cnpj',            
         ];
 
         return $this->select($atributos)
@@ -103,7 +103,7 @@ class OrdemModel extends Model
             
             'clientes.usuario_id as cliente_usuario_id',    //Usaremos para o acesso do cliente ao sistema
             'clientes.nome',
-            'clientes.cpf',         //Obrigatório para gerar o boleto na gerencianet
+            'clientes.cpf_cnpj',    //Obrigatório para gerar o boleto na gerencianet
             'clientes.telefone',    //Obrigatório para gerar o boleto na gerencianet
             'clientes.email',       //Obrigatório para gerar o boleto na gerencianet
         ];
@@ -170,7 +170,7 @@ class OrdemModel extends Model
             'ordens.atualizado_em',
             'ordens.deletado_em',
             'clientes.nome',
-            'clientes.cpf',
+            'clientes.cpf_cnpj',
         ];
 
         $dataInicial = str_replace('T', ' ', $dataInicial);
@@ -198,7 +198,7 @@ class OrdemModel extends Model
             'ordens.atualizado_em',
             'ordens.deletado_em',
             'clientes.nome',
-            'clientes.cpf',
+            'clientes.cpf_cnpj',
         ];
 
         $dataInicial = str_replace('T', ' ', $dataInicial);

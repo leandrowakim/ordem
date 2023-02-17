@@ -23,23 +23,10 @@ $('[name=email]').on('change', function()
                $("#form").LoadingOverlay("hide", true);
 
                if (!response.erro) {
-
-                  if (!response.endereco) {
-
-                     $('[name=endereco]').prop('readonly', false);
-                     $('[name=bairro]').prop('readonly', false);
-                     $('[name=endereco]').focus();
-                  }
-
-                  $('[name=endereco]').val(response.endereco);
-                  $('[name=bairro]').val(response.bairro);
-                  $('[name=cidade]').val(response.cidade);
-                  $('[name=estado]').val(response.estado);
-
+                  
                } else {
                   //Erros de validação
                   $('#email').html(response.erro);
-
                }
             },
             error: function() {

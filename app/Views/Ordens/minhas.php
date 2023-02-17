@@ -25,7 +25,7 @@
                   <tr>
                      <th>O.S.</th>
                      <th>Nome do Cliente</th>
-                     <th>CPF</th>
+                     <th>Documento</th>
                      <th>Data Emissão</th>
                      <th>Situação</th>
                   </tr>

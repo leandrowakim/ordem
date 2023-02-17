@@ -54,7 +54,7 @@
          <tr>
             <th scope="col" style="text-align: center;">Ordem</th>
             <th scope="col" style="text-align: center;">Cliente</th>
-            <th scope="col" style="text-align: center;">CPF</th>
+            <th scope="col" style="text-align: center;">Documento</th>
             <th scope="col" style="text-align: center;">Data última atualização</th>
             <th scope="col" style="text-align: center;">Situação</th>
             <th scope="col" style="text-align: center;">Valor da Ordem</th>
@@ -67,7 +67,7 @@
          <tr>
             <td><?php echo esc($ordem->codigo); ?></td>
             <td><?php echo esc($ordem->nome); ?></td>
-            <td><?php echo esc($ordem->cpf); ?></td>
+            <td><?php echo esc($ordem->cpf_cnpj); ?></td>
             <td><?php echo ($ordem->deletado_em === null ? $ordem->atualizado_em->humanize() : $ordem->deletado_em->humanize()); ?></td>
             <td style="text-align: center;"><?php echo $ordem->exibeSituacao(); ?></td>
             <td style="text-align: right;"><?php echo number_format($ordem->valor_ordem,2); ?></td>

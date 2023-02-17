@@ -21,7 +21,7 @@
                   <tr>
                      <th>O.S.</th>
                      <th>Nome do Cliente</th>
-                     <th>CPF</th>
+                     <th>Documento</th>
                      <th>Data Emissão</th>
                      <th>Situação</th>
                   </tr>
@@ -81,7 +81,7 @@ $(document).ready(function() {
             "data": "nome"
          },
          {
-            "data": "cpf"
+            "data": "cpf_cnpj"
          },
          {
             "data": "criado_em"

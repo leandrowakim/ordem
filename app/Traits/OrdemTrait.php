@@ -82,7 +82,7 @@ trait OrdemTrait
          
          $valor = $valorProdutos + $valorServicos;
 
-         $porcentagem = (int) getenv('gerenciaNetDesconto') / 100;
+         $porcentagem = (int) env('gerenciaNetDesconto') / 100;
 
          // Sobrescrevemos o valor de desconto, caso exista para a forma de pagamento em Boleto
          $ordem->valor_desconto = number_format(($valor * ($porcentagem / 100)),2);
@@ -91,6 +91,10 @@ trait OrdemTrait
       $valorOrdem = number_format((($valorProdutos + $valorServicos) - $ordem->valor_desconto),2);
 
       $ordem->valor_ordem = str_replace(',', '', $valorOrdem);
+
+      //echo '<pre>';
+      //print_r($ordem);      
+      //exit;
 
       // Serializamos os itens da ordem
       $ordem->itens = serialize($ordem->itens);

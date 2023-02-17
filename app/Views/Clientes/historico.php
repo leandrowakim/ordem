@@ -13,8 +13,9 @@
    <div class="col-lg-4">
       <div class="user-block block">
 
-         <h5 class="card-title mt=2"><?php echo esc($cliente->nome); ?></h5>         
-         <p class="card-text">CPF: <?php echo esc($cliente->cpf); ?></p>
+         <h5 class="card-title mt=2"><?php echo esc($cliente->nome); ?></h5>
+         <p class="card-text"><?php echo ($cliente->pessoa === 'F' ? "CPF: " : "CNPJ: "); ?><?php echo esc($cliente->cpf_cnpj); ?></p>
+         <p class="card-text"><?php echo ($cliente->pessoa === 'F' ? "RG: " : "IE: "); ?><?php echo esc($cliente->rg_ie); ?></p>         
          <p class="card-text">Telefone: <?php echo esc($cliente->telefone); ?></p>
          <p class="contributions"><?php echo $cliente->exibeSituacao(); ?></p>
          <p class="card-text">Criado <?php echo esc($cliente->criado_em->humanize()); ?></p>

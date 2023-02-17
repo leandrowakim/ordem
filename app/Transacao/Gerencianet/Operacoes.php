@@ -59,17 +59,42 @@ class Operacoes
       $urlNotificacoes = "https://hookb.in/7ZmKe2NxNGiWXDmW3jao";
       $metadata = array('notification_url' => $urlNotificacoes);
 
-      $customer = [
-         'name' => $this->ordem->nome, // nome do cliente
-         'cpf' => str_replace(['.','-'], '', $this->ordem->cpf), // cpf válido do cliente
-         'phone_number' => str_replace(['(',')', ' ', '-'], '', $this->ordem->telefone), // telefone do cliente
-         'email' => $this->ordem->email, // email do cliente
-      ];
+      $docto = str_replace(['.','-','/'], '', $this->ordem->cpf_cnpj);
+      $telefone = str_replace(['(',')', ' ', '-'], '', $this->ordem->telefone);
 
-      $discount = [ // configuração de descontos
-         'type'  => 'percentage', // tipo de desconto a ser aplicado
-         'value' => $this->gerenciaNetDesconto, // valor de desconto 
-      ];
+      if (strlen($docto) == 11) {
+         $customer = [
+            'name' => $this->ordem->nome,    // nome do cliente
+            'cpf' => $docto,                 // cpf válido do cliente
+            'phone_number' => $telefone,     // telefone do cliente
+            'email' => $this->ordem->email,  // email do cliente
+         ];
+      } else {
+         $customer = [
+            'phone_number' => $telefone,              // telefone do cliente
+            'email' => $this->ordem->email,           // email do cliente
+            'juridical_person' => [
+               'corporate_name' => $this->ordem->nome,   // nome do cliente
+               'cnpj' => $docto,                         // cnpj válido do cliente   
+            ]
+         ];
+      }
+      
+      // configuração de descontos
+      $discount = [];
+      if ($this->gerenciaNetDesconto > 0) {
+         $discount = [              
+            'type'  => 'percentage', // tipo de desconto a ser aplicado
+            'value' => $this->gerenciaNetDesconto, // valor de desconto 
+         ];
+      } else {
+         if ($this->ordem->valor_desconto >0) {
+            $discount = [
+               'type'  => 'currency', // tipo de desconto a ser aplicado
+               'value' => (int) str_replace([',','.'], '', $this->ordem->valor_desconto) // valor de desconto
+            ];            
+         }
+      }
 
       //$conditional_discount = [ // configurações de desconto condicional
       //   'type' => 'percentage', // seleção do tipo de desconto 
@@ -82,13 +107,20 @@ class Operacoes
          'interest' => 33   // porcentagem de juros
       ];     
 
-      $bankingBillet = [
-         'expire_at' => $this->ordem->data_vencimento, // data de vencimento do titulo
-         'message' => "Boleto referente a OS: " . $this->ordem->codigo, // mensagem a ser exibida no boleto
-         'customer' => $customer,
-         'discount' => $discount,
-         //'conditional_discount' => $conditional_discount
-      ];
+      if (empty($discount)){
+         $bankingBillet = [
+            'expire_at' => $this->ordem->data_vencimento, // data de vencimento do titulo
+            'message' => "Boleto referente a OS: " . $this->ordem->codigo, // mensagem a ser exibida no boleto
+            'customer' => $customer,
+         ];
+      } else {
+         $bankingBillet = [
+            'expire_at' => $this->ordem->data_vencimento, // data de vencimento do titulo
+            'message' => "Boleto referente a OS: " . $this->ordem->codigo, // mensagem a ser exibida no boleto
+            'customer' => $customer,
+            'discount' =>  $discount
+         ];
+      }
 
      $payment = [
          'banking_billet' => $bankingBillet // forma de pagamento (banking_billet = boleto)
@@ -99,6 +131,11 @@ class Operacoes
          'metadata' =>$metadata,
          'payment' => $payment
      ];
+
+     /*  echo '<pre>';
+     print_r($body);
+     echo '<pre>';       
+     exit; */
 
      try {
          $api = new Gerencianet($this->options);
@@ -125,7 +162,7 @@ class Operacoes
          $transacao->ordem_id = $this->ordem->id;
          $transacao->charge_id = $objetoRetorno->data->charge_id;
          $transacao->barcode = $objetoRetorno->data->barcode;
-         $transacao->link = $objetoRetorno->data->link;
+         $transacao->link = $objetoRetorno->data->billet_link;
          $transacao->pdf = $objetoRetorno->data->pdf->charge;
          $transacao->expire_at = $objetoRetorno->data->expire_at;
          $transacao->status = $objetoRetorno->data->status;

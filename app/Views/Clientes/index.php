@@ -20,7 +20,7 @@
                <thead>
                   <tr>
                      <th>Nome</th>
-                     <th>CPF</th>
+                     <th>Documento</th>
                      <th>E-mail</th>
                      <th>Telefone</th>
                      <th>Situação</th>
@@ -78,7 +78,7 @@ $(document).ready(function() {
             "data": "nome"
          },
          {
-            "data": "cpf"
+            "data": "cpf_cnpj"
          },
          {
             "data": "email"

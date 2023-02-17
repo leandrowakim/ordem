@@ -107,7 +107,7 @@ class Ordens extends BaseController
             $data[] = [
                 'ordem'     => anchor("ordens/detalhes/$ordem->codigo", $ordem->codigo, 'title="Exibir OS: '.$ordem->codigo.'"'),
                 'nome'      => esc($ordem->nome),
-                'cpf'       => esc($ordem->cpf),                
+                'cpf_cnpj'  => esc($ordem->cpf_cnpj),
                 'criado_em' => esc($ordem->criado_em->humanize()),
                 'situacao'  => $ordem->exibeSituacao(),
             ];
@@ -131,8 +131,8 @@ class Ordens extends BaseController
 
         $atributos = [
             'id',
-            'CONCAT(nome, " - CPF: ", cpf) as nome',
-            'cpf',
+            'CONCAT(nome, " -  ", cpf_cnpj) as nome',
+            'cpf_cnpj',
         ];
 
         $termo = $this->request->getGet('termo');
@@ -140,7 +140,7 @@ class Ordens extends BaseController
         $clientes = $this->clienteModel->select($atributos)
                                        ->asArray()
                                        ->like('nome', $termo)
-                                       ->orLike('cpf', $termo)
+                                       ->orLike('cpf_cnpj', $termo)
                                        ->orderBy('nome', 'ASC')
                                        ->findAll();
 
@@ -566,7 +566,7 @@ class Ordens extends BaseController
                 return $this->response->setJSON($retorno);
             }
 
-            $href = $ordem->transacao->pdf;
+            $href = $ordem->transacao->link;
 
             $btnCriar = anchor("$href", 'Imprimir Boleto', ['class' => 'btn btn-danger mt-2', 'target' => '_blank']);
 
@@ -695,7 +695,7 @@ class Ordens extends BaseController
             $data[] = [
                 $ordem->codigo = anchor("ordens/exibirordemcliente/$ordem->codigo", $ordem->codigo, 'title="Exibir essa OS"'),
                 esc($ordem->nome),
-                esc($ordem->cpf),                
+                esc($ordem->cpf_cnpj),                
                 esc($ordem->criado_em->humanize()),
                 $ordem->exibeSituacao(),
             ];

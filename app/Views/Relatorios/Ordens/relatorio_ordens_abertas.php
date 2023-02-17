@@ -54,7 +54,7 @@
          <tr>
             <th scope="col" style="text-align: center;">Ordem</th>
             <th scope="col" style="text-align: center;">Cliente</th>
-            <th scope="col" style="text-align: center;">CPF</th>
+            <th scope="col" style="text-align: center;">Documento</th>
             <th scope="col" style="text-align: center;">Data de abertura</th>
             <th scope="col" style="text-align: center;">Situação</th>
          </tr>
@@ -65,7 +65,7 @@
          <tr>
             <td><?php echo esc($ordem->codigo); ?></td>
             <td><?php echo esc($ordem->nome); ?></td>
-            <td><?php echo esc($ordem->cpf); ?></td>
+            <td><?php echo esc($ordem->cpf_cnpj); ?></td>
             <td><?php echo esc($ordem->criado_em->humanize()); ?></td>
             <td style="text-align: center;"><?php echo $ordem->exibeSituacao(); ?></td>
          </tr>
