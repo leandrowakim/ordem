@@ -56,7 +56,7 @@ class Operacoes
        * $todo mudar para URL do servidor de hospedagem ... localhost não funciona
        */
       // Servidor temporário => https://hookbin.com/7ZmKe2NxNGiWXDmW3jao
-      $urlNotificacoes = "https://hookb.in/7ZmKe2NxNGiWXDmW3jao";
+      $urlNotificacoes = site_url('transacoes/notificacoes');
       $metadata = array('notification_url' => $urlNotificacoes);
 
       $docto = str_replace(['.','-','/'], '', $this->ordem->cpf_cnpj);

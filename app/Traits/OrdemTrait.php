@@ -85,7 +85,9 @@ trait OrdemTrait
          $porcentagem = (int) env('gerenciaNetDesconto') / 100;
 
          // Sobrescrevemos o valor de desconto, caso exista para a forma de pagamento em Boleto
-         $ordem->valor_desconto = number_format(($valor * ($porcentagem / 100)),2);
+         if ($porcentagem > 0) {
+            $ordem->valor_desconto = number_format(($valor * ($porcentagem / 100)),2);
+         }
       }
 
       $valorOrdem = number_format((($valorProdutos + $valorServicos) - $ordem->valor_desconto),2);

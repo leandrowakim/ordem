@@ -653,9 +653,11 @@ class Ordens extends BaseController
 
                 session()->setFlashdata('sucesso', "Desconto de $descontoAdicionado inserido com sucesso!");
 
-                $texto = "<b>" . usuario_logado()->nome . "</b>, se esta OS for encerrada por <b>Boleto Bancário</b>, prevalecerá o valor de desconto de <b>$descontoBoleto</b> para essa forma de pagamento!";
-
-                session()->setFlashdata('info', $texto);
+                if ($descontoBoleto != '0%') {
+                    $texto = "<b>" . usuario_logado()->nome . "</b>, se esta OS for encerrada por <b>Boleto Bancário</b>, prevalecerá o valor de desconto de <b>$descontoBoleto</b> para essa forma de pagamento!";
+                    session()->setFlashdata('info', $texto);
+                }
+                
                 return $this->response->setJSON($retorno);
             }else{
 

@@ -67,7 +67,7 @@ class OrdemModel extends Model
             'ordens.deletado_em',
             'ordens.situacao',
             'clientes.nome',
-            'clientes._cnpj',            
+            'clientes.cpf_cnpj',            
         ];
 
         return $this->select($atributos)
